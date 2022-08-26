@@ -31,14 +31,12 @@ export default function Notes({route, navigation}) {
   return (
     <View style={styles.container}>
       <Text style={styles.h1Style}> Your Alert is set to {route.params.alertsPerHour} </Text>
+      <Card.Title>What you've been up to today</Card.Title>
      <View style={styles.addNotes}><TextInput style={styles.addNotesText} placeholder='What were you doing now?' onChangeText={newText => setInputValue(newText)}></TextInput> 
       <Button style={styles.addNotesButton} title="Add Item" onPress={simpleNoteHandler}/></View> 
-      <Card.Title>What you've been up to today</Card.Title>
         <Card.Divider/>
-        <View style={{position:"relative",alignItems:"center"}}>
-         
-          {notes.map((item, i)=>
-          
+        <View style={styles.currentNotes}>
+         {notes.map((item, i)=>
      <NoteItem key={i} note={item.item} date={todaysDate} />
       
      )}
@@ -70,11 +68,9 @@ const styles = StyleSheet.create({
   addNotes: {
   display: "flex",
   flexDirection: 'row',
-  alignContent: 'center',
-  alignItems: 'center',
-  alignSelf:'center',
-paddingRight:20,
+  paddingRight:20,
 paddingLeft:30,
+    justifyContent: 'space-between',
 
   },
   addNotesText: {
@@ -83,6 +79,10 @@ paddingLeft:30,
   addNotesButton: {
       
       },
-
+currentNotes:{
+  position:"relative",
+  alignItems:"left",
+  marginLeft: 15,
+},
 });
 
