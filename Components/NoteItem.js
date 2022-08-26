@@ -7,8 +7,18 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 export default function NoteItem({note, date}) {
   return (
     <View>
-        <Text>{date}</Text>
-        <Text>{note}</Text>
+        <Text style={styles.date}>{date}</Text>
+        <Text style={styles.note} >{note}</Text>
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  note:{
+    fontWeight: '500',
+    marginBottom: 10,
+  },
+  date: {
+    textDecorationLine: 'underline'
+  },
+});
