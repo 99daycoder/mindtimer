@@ -5,10 +5,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 
-export default function Notes() {
+export default function Notes({alertsPerHour}) {
   return (
     <View style={styles.container}>
-      <Text style={styles.h1Style}>Notes go here...</Text>
+      <Text style={styles.h1Style}> Your Alert is set to {alertsPerHour} </Text>
     
     </View>
   );

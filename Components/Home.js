@@ -8,9 +8,10 @@ import { StyleSheet, View, Alert } from 'react-native';
 export default function Home({navigation}) {
 
   const simpleAlertHandler = () => {
+    setAlertsPerHour(inputValue)
     //function to make simple alert
-    alert('Hello Its Time to log your progress');
-    navigation.navigate('Notes')
+    Alert.alert(`Hello your alerts are set!`);
+    navigation.navigate('Notes',{alertsPerHour} )
     //push to a new page here
   };
   const [alertsPerHour, setAlertsPerHour] = useState(0)
@@ -21,9 +22,8 @@ export default function Home({navigation}) {
       <Input
       placeholder='How Many Alerts Per Hour?'onChangeText={newText => setInputValue(newText)}/>
       <StatusBar style="auto" />
-      <Button onPress={()=>setAlertsPerHour(inputValue)}>Start Alerts</Button>
       <Text>{alertsPerHour}</Text>
-      <Button onPress={simpleAlertHandler}>Show Alert</Button>
+      <Button onPress={simpleAlertHandler}>Start Alerts</Button>
       <Text>Hello</Text>
     </View>
   );
