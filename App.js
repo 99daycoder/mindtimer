@@ -1,14 +1,18 @@
-import { Button, Text} from '@rneui/base';
+import { Button, Text, Input} from '@rneui/base';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
+
 
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text style={styles.h1Style}>Open up App.js to start working on your app!</Text>
+      <View><Text style={styles.h1Style}>Random Bells per hour?</Text>
+      <Input
+      placeholder='How Many Alerts / Hour?'/>
+      </View>
       <StatusBar style="auto" />
-      <Button>This is button</Button>
+      <Button>Start Timer</Button>
     </View>
   );
 }
