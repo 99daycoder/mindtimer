@@ -1,14 +1,17 @@
 import { Button, Text, Input} from '@rneui/base';
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Alert } from 'react-native';
 
 export default function App() {
 
+  const simpleAlertHandler = () => {
+    //function to make simple alert
+    alert('Hello Its Time to log your progress');
+    //push to a new page here
+  };
   const [alertsPerHour, setAlertsPerHour] = useState(0)
   const [inputValue, setInputValue]= useState(0)
-
-  
 
   return (
     <View style={styles.container}>
@@ -17,6 +20,8 @@ export default function App() {
       <StatusBar style="auto" />
       <Button onPress={()=>setAlertsPerHour(inputValue)}>Start Alerts</Button>
       <Text>{alertsPerHour}</Text>
+      <Button onPress={simpleAlertHandler}>Show Alert</Button>
+      <Text>Hello</Text>
     </View>
   );
 }
