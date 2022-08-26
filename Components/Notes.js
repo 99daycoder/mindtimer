@@ -7,7 +7,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import NoteItem from './NoteItem';
 import { useState } from 'react';
 
-export default function Notes({route, navigation}) {
+export default function Notes() {
 
   const [inputValue, setInputValue]= useState()
   const [notes, setNotes] = useState([{item:'Eating a banana', date:''}, {item:'Eating chips', date:''},{item:'Creating presentation', date:''}])
@@ -30,7 +30,6 @@ export default function Notes({route, navigation}) {
   console.log(notes[0].item)
   return (
     <View style={styles.container}>
-      <Text style={styles.h1Style}> Your Alert is set to {route.params.alertsPerHour} </Text>
       <Card.Title>What you've been up to today</Card.Title>
      <View style={styles.addNotes}><TextInput style={styles.addNotesText} placeholder='What were you doing now?' onChangeText={newText => setInputValue(newText)}></TextInput> 
       <Button style={styles.addNotesButton} title="Add Item" onPress={simpleNoteHandler}/></View> 
