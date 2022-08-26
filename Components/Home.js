@@ -1,30 +1,45 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Button, Text, Input} from '@rneui/base';
+import { Button, Text, Input } from '@rneui/base';
 import { StatusBar } from 'expo-status-bar';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { StyleSheet, View, Alert } from 'react-native';
+import BackgroundFetch from "react-native-background-fetch";
 
-export default function Home({navigation}) {
+export default function Home({ navigation }) {
+    let displayNotes = true
+    var timer = null
 
-  const simpleAlertHandler = () => {
-    setAlertsPerHour(inputValue)
-    //function to make simple alert
-    Alert.alert(`Hello your alerts are set!`);
-    navigation.navigate('Notes', {alertsPerHour} )
-    //push to a new page here
-  };
+    const startAlertHandler = () => {
+      const timer = setInterval(function () {
+        //function to make simple alert
+        Alert.alert(`Hello your alerts are set!`);
+        // navigation.navigate('Notes')
+      }, 15000);
+    }
+    const stopAlertHandler = () => {
+      clearInterval(timer)
+    }
+
+
   const [alertsPerHour, setAlertsPerHour] = useState(0)
-  const [inputValue, setInputValue]= useState(0)
+  const [inputValue, setInputValue] = useState(0)
 
   return (
     <View style={styles.container}>
+      {(displayNotes) ?
+      <>
       <Input
-      placeholder='How Many Alerts Per Hour?'onChangeText={newText => setInputValue(newText)}/>
+        placeholder='How Many Alerts Per Hour?' onChangeText={newText => setInputValue(newText)} />
       <StatusBar style="auto" />
       <Text>{alertsPerHour}</Text>
-      <Button onPress={simpleAlertHandler}>Start Alerts</Button>
+      <Button onPress={startAlertHandler}>Start Alerts</Button>
+      <Button onPress={stopAlertHandler}>Stop Alerts</Button>
       <Text>Hello</Text>
+      </>
+      :
+      //Put your component here
+      <><Text>Notes</Text></>}
     </View>
   );
 }
@@ -40,16 +55,16 @@ const styles = StyleSheet.create({
 
 
   h1Style: {
-    
+
     fontWeight: '300',
-    color:'red'
+    color: 'red'
   },
   h2Style: {
-    
+
     fontWeight: '100',
   },
   h3Style: {
-    
+
     fontWeight: '500',
   },
 });
