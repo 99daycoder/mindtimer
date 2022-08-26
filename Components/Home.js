@@ -11,7 +11,7 @@ export default function Home({navigation}) {
     setAlertsPerHour(inputValue)
     //function to make simple alert
     Alert.alert(`Hello your alerts are set!`);
-    navigation.navigate('Notes',{alertsPerHour} )
+    navigation.navigate('Notes', {alertsPerHour} )
     //push to a new page here
   };
   const [alertsPerHour, setAlertsPerHour] = useState(0)
