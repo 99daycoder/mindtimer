@@ -2,25 +2,24 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Button, Text, Input } from '@rneui/base';
 import { StatusBar } from 'expo-status-bar';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { StyleSheet, View, Alert } from 'react-native';
-import BackgroundFetch from "react-native-background-fetch";
 
 export default function Home({ navigation }) {
     let displayNotes = true
-    var timer = null
+
+    let id = useRef()
 
     const startAlertHandler = () => {
-      const timer = setInterval(function () {
+      id.current = setInterval(function () {
         //function to make simple alert
         Alert.alert(`Hello your alerts are set!`);
         // navigation.navigate('Notes')
       }, 15000);
     }
     const stopAlertHandler = () => {
-      clearInterval(timer)
+      clearInterval(id.current)
     }
-
 
   const [alertsPerHour, setAlertsPerHour] = useState(0)
   const [inputValue, setInputValue] = useState(0)
