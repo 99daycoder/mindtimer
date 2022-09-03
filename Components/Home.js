@@ -12,8 +12,8 @@ import * as Device from 'expo-device';
 export default function Home({ navigation }) {
 
   useEffect(() => {
-    const subscription = Notifications.addNotificationReceivedListener(notification => {
-      navigation.navigate('Notes');
+    const subscription = Notifications.addNotificationResponseReceivedListener(notification => {
+      navigation.navigate('Notes')
     });
     return () => subscription.remove();
   }, []);
