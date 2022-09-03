@@ -16,6 +16,7 @@
     "@rneui/base": "^4.0.0-rc.6",
     "@rneui/themed": "^4.0.0-rc.6",
     "expo": "~46.0.9",
+    "expo-device": "^4.3.0",
     "expo-font": "~10.2.0",
     "expo-notifications": "^0.16.1",
     "expo-permissions": "^13.2.0",
