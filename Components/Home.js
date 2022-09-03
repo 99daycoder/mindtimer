@@ -1,36 +1,54 @@
 import { Button, Input, Card } from '@rneui/base';
 import { StatusBar } from 'expo-status-bar';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { View, Alert, Keyboard } from 'react-native';
 import { globalStyles } from '../styles/global';
+import * as Notifications from "expo-notifications";
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
+});
 
 export default function Home({ navigation }) {
-  let id = useRef()
   let input = useRef()
+  const [alertsPerHour, setAlertsPerHour] = useState(0)
+  const [inputValue, setInputValue] = useState(0)
+
+  async function scheduleAndCancel() {
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: 'MindTimer Notification',
+        body: "Please log your activity",
+        data: { data: 'goes here' }
+      },
+      trigger: { seconds: parseInt(inputValue), repeats: true },
+    });
+
+  }
 
   const startAlertHandler = () => {
     input.current.clear();
     Keyboard.dismiss();
 
-    id.current = setInterval(function () {
-      Alert.alert(`Please Log your activity!!`);
-      navigation.navigate('Notes')
-    }, inputValue * 1000);
+    // Alert.alert(`Please Log your activity!!`);
+    scheduleAndCancel()
+    // navigation.navigate('Notes')
 
   }
-  const stopAlertHandler = () => {
-    clearInterval(id.current)
+  const stopAlertHandler = async () => {
+    await Notifications.cancelAllScheduledNotificationsAsync();
     setAlertsPerHour(0)
   }
-
-  const [alertsPerHour, setAlertsPerHour] = useState(0)
-  const [inputValue, setInputValue] = useState(0)
 
   return (
     <View style={globalStyles.container}>
       <Input
         ref={input}
-        placeholder='How Many Alerts Per Second?'
+        placeholder='How Many Seconds Between Alerts?'
         onEndEditing={() => setAlertsPerHour(inputValue)}
         onChangeText={newText => setInputValue(newText)} />
       <StatusBar style="auto" />
