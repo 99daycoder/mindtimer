@@ -9,7 +9,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function Notes() {
   let input = useRef()
   const [inputValue, setInputValue] = useState()
-  const [notes, setNotes] = useState([])
+  const [notes, setNotes] = useState()
 
     useEffect(() => {
      getData()
@@ -32,8 +32,9 @@ export default function Notes() {
   const getData = async () => {
     try {
       const jsonValue = await AsyncStorage.getItem('@storage_Key')
-      console.log('local storage is..', jsonValue)
-       jsonValue != null ? setNotes(JSON.parse(jsonValue)) : null;
+      console.log('local storage is..', jsonValue != null )
+      console.log('local storage is..', jsonValue.length )
+       setNotes(JSON.parse(jsonValue)) 
     } catch(e) {
       // error reading value
     }
@@ -52,7 +53,6 @@ export default function Notes() {
   }
 
   function deleteHandler(key) {
-    console.log(key)
     setNotes(notes.filter(note => note.key != key))
   }
 
