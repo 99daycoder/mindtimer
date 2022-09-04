@@ -1,15 +1,15 @@
 import { Text } from '@rneui/base';
 import { Card } from "@rneui/themed";
 import { StyleSheet} from 'react-native';
-import { TouchableOpacity } from 'react-native-web';
+import { TouchableOpacity } from 'react-native';
 import { globalStyles } from '../styles/global';
 
-export default function NoteItem({note, date, deleteHandler, item}) {
+export default function NoteItem({note, deleteHandler}) {
   return (
-   <TouchableOpacity onPress={deleteHandler(item.key)}>
+   <TouchableOpacity onPress={() => deleteHandler(note.key)}>
    <Card>
-        <Text style={globalStyles.h2Style}>{date}</Text>
-        <Text style={globalStyles.h1Style} >{note}</Text>
+        <Text style={globalStyles.h2Style}>{note.date}</Text>
+        <Text style={globalStyles.h1Style}>{note.item}</Text>
     </Card>
     </TouchableOpacity>
   )
