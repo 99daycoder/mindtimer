@@ -15,6 +15,7 @@ export const globalStyles = StyleSheet.create({
   row: {
     display: "flex",
     flexDirection: 'row',
+
   },
   inputRow: {
     width: '50%',
@@ -45,5 +46,12 @@ export const globalStyles = StyleSheet.create({
     backgroundColor: 'rgba(78, 116, 289, 1)',
     borderRadius: 3,
   },
+  cardRow: {
+    display: "flex",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems:'center'
+  },
+  
 
 });
