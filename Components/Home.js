@@ -1,11 +1,13 @@
-import { Button, Input, Card } from "@rneui/base";
+import { Button, Card } from "@rneui/base";
 import { StatusBar } from "expo-status-bar";
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { View, Keyboard, TouchableWithoutFeedback, Text } from "react-native";
 import { globalStyles } from "../styles/global";
 import * as Notifications from "expo-notifications";
-import * as Device from "expo-device";
-import Slider from "@react-native-community/slider";
+import * as Device from 'expo-device';
+import Slider from '@react-native-community/slider';
+import InlineTimePicker from 'react-native-inline-timepicker';
+
 
 export default function Home({ navigation }) {
   useEffect(() => {
@@ -30,9 +32,11 @@ export default function Home({ navigation }) {
 
   const [alertsPerHour, setAlertsPerHour] = useState(0);
   const [inputValue, setInputValue] = useState(0);
+
   const [buttonText, setButtonText] = useState("Start Timer");
   const [alertStatus, setAlertStatus] = useState(false);
   const [expoPushToken, setExpoPushToken] = useState("");
+  const [date, setDate] = useState(new Date());
 
   const alertHandler = () => {
     if (alertStatus == true) {
@@ -41,6 +45,7 @@ export default function Home({ navigation }) {
       startAlertHandler();
     }
   };
+
 
   const startAlertHandler = async () => {
     setButtonText("Stop Timer");
@@ -79,9 +84,11 @@ export default function Home({ navigation }) {
       console.log(token);
     }
 
-    if (Platform.OS === "android") {
-      await Notifications.setNotificationChannelAsync("default", {
-        name: "default",
+
+    if (Platform.OS === 'android') {
+      await Notifications.setNotificationChannelAsync('default', {
+        name: 'default',
+
         importance: Notifications.AndroidImportance.MAX,
         vibrationPattern: [0, 250, 250, 250],
         lightColor: "#FF231F7C",
@@ -101,6 +108,7 @@ export default function Home({ navigation }) {
           </Card.Title>
         ) : (
           <Card.Title>Your alerts are currently off</Card.Title>
+
         )} */}
         <Text>Number of Random bells per hour</Text>
         <View style={globalStyles.sliderContainer}>
@@ -116,6 +124,10 @@ export default function Home({ navigation }) {
           />
           <Text>{alertsPerHour} seconds</Text>
         </View>
+      <Text>Begin At</Text>
+        <InlineTimePicker onChangeTime={{}}/>
+        <Text>End At</Text>
+        <InlineTimePicker onChangeTime={{}}/>
         <Button
           title={buttonText}
           onPress={alertHandler}
