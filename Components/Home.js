@@ -2,6 +2,7 @@ import { Button, Card } from "@rneui/base";
 import { StatusBar } from "expo-status-bar";
 import { useState, useEffect } from "react";
 import { View, Keyboard, TouchableWithoutFeedback, Text } from "react-native";
+import { Divider } from "@rneui/themed";
 import { globalStyles } from "../styles/global";
 import * as Notifications from "expo-notifications";
 import * as Device from 'expo-device';
@@ -37,6 +38,8 @@ export default function Home({ navigation }) {
   const [alertStatus, setAlertStatus] = useState(false);
   const [expoPushToken, setExpoPushToken] = useState("");
   const [date, setDate] = useState(new Date());
+  const [startTimeH, setStartTimeH] = useState('10')
+  const [startTimeM, setStartTimeM] = useState('00')
 
   const alertHandler = () => {
     if (alertStatus == true) {
@@ -110,6 +113,44 @@ export default function Home({ navigation }) {
           <Card.Title>Your alerts are currently off</Card.Title>
 
         )} */}
+        <Text>Start Time:</Text>
+      <View style={globalStyles.sliderContainer}>
+        <View style={globalStyles.clockElements} >
+      <Text>Hour:</Text>
+          <Slider
+            style={{ width: 100, height: 40 }}
+            onSlidingComplete={() => setAlertsPerHour(inputValue)}
+            onValueChange={(newText) => setStartTimeH(newText)}
+            minimumValue={1}
+            maximumValue={12}
+            minimumTrackTintColor="#FFFFFF"
+            maximumTrackTintColor="#000000"
+            step={1}
+            />
+          
+        </View>
+        <View style={globalStyles.clockElements}>
+        <Text>Minutes</Text>
+          <Slider
+            style={{ width: 100, height: 40 }}
+            onSlidingComplete={() => setAlertsPerHour(inputValue)}
+            onValueChange={(newText) => setStartTimeM(newText)}
+            minimumValue={0}
+            maximumValue={50}
+            minimumTrackTintColor="#FFFFFF"
+            maximumTrackTintColor="#000000"
+            step={10}
+            />
+          
+        </View>
+        </View>
+        <View
+        style={globalStyles.startTime}>
+        <Text >{startTimeH}:{startTimeM}</Text>
+        </View>
+        
+            <Divider style={globalStyles.divider}/>
+
         <Text>Number of Random bells per hour</Text>
         <View style={globalStyles.sliderContainer}>
           <Slider
@@ -124,10 +165,7 @@ export default function Home({ navigation }) {
           />
           <Text>{alertsPerHour} seconds</Text>
         </View>
-      <Text>Begin At</Text>
-        <InlineTimePicker onChangeTime={{}}/>
-        <Text>End At</Text>
-        <InlineTimePicker onChangeTime={{}}/>
+    
         <Button
           title={buttonText}
           onPress={alertHandler}

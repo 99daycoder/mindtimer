@@ -57,5 +57,16 @@ export const globalStyles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
+  clockElements:{
+    marginHorizontal: 10,
+    marginVertical: 10,
+  },
+  divider:{
+marginVertical:20,
+  },
+  startTime:{
+alignContent: 'center',
+alignItems: 'center',
+  },
 
 });
