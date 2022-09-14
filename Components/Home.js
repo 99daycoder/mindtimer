@@ -1,11 +1,12 @@
-import { Button, Input, Card } from "@rneui/base";
+import { Button, Card } from "@rneui/base";
 import { StatusBar } from "expo-status-bar";
-import { useState, useRef, useEffect } from "react";
-import { View, Keyboard, TouchableWithoutFeedback } from "react-native";
+import { useState, useEffect } from "react";
+import { View, Keyboard, TouchableWithoutFeedback, Text } from "react-native";
 import { globalStyles } from "../styles/global";
 import * as Notifications from "expo-notifications";
 import * as Device from 'expo-device';
 import Slider from '@react-native-community/slider';
+import InlineTimePicker from 'react-native-inline-timepicker';
 
 
 export default function Home({ navigation }) {
@@ -30,7 +31,8 @@ export default function Home({ navigation }) {
   const [alertsPerHour, setAlertsPerHour] = useState(0);
   const [inputValue, setInputValue] = useState(0);
   const [expoPushToken, setExpoPushToken] = useState('');
-  
+  const [date, setDate] = useState(new Date());
+
   const startAlertHandler = async () => {
     await Notifications.scheduleNotificationAsync({
       content: {
@@ -64,7 +66,7 @@ export default function Home({ navigation }) {
     } else {
       alert('Must use physical device for Push Notifications');
     }
-  
+
     if (Platform.OS === 'android') {
       await Notifications.setNotificationChannelAsync('default', {
         name: 'default',
@@ -73,7 +75,7 @@ export default function Home({ navigation }) {
         lightColor: '#FF231F7C',
       });
     }
-  
+
     return token;
   }
 
@@ -98,6 +100,10 @@ export default function Home({ navigation }) {
           maximumTrackTintColor="#000000"
           step={10}
         />
+        <Text>Begin At</Text>
+        <InlineTimePicker onChangeTime={{}}/>
+        <Text>End At</Text>
+        <InlineTimePicker onChangeTime={{}}/>
         <Button
           title="Start Alerts"
           onPress={startAlertHandler}
