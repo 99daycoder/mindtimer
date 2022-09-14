@@ -6,6 +6,8 @@ import { globalStyles } from "../styles/global";
 import * as Notifications from "expo-notifications";
 import { TouchableOpacity } from 'react-native';
 import * as Device from "expo-device";
+import Slider from '@react-native-community/slider';
+
 
 
 export default function Home({ navigation }) {
@@ -21,7 +23,7 @@ export default function Home({ navigation }) {
   Notifications.setNotificationHandler({
     handleNotification: async () => ({
       shouldShowAlert: true,
-      shouldPlaySound: false,
+      shouldPlaySound: true,
       shouldSetBadge: false,
     }),
   });
@@ -83,8 +85,8 @@ export default function Home({ navigation }) {
     }
   };
   return (
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-    <View style={globalStyles.container}>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={globalStyles.container}>
         <Input
           ref={input}
           placeholder="How Many Seconds Between Alerts?"
@@ -99,6 +101,17 @@ export default function Home({ navigation }) {
         ) : (
           <Card.Title>Your alerts are currently off</Card.Title>
         )}
+        <Slider
+          ref={input}
+          style={{ width: 200, height: 40 }}
+          onSlidingComplete={() => setAlertsPerHour(inputValue)}
+          onValueChange={(newText) => setInputValue(newText)}
+          minimumValue={1}
+          maximumValue={6}
+          minimumTrackTintColor="#FFFFFF"
+          maximumTrackTintColor="#000000"
+          step={1}
+        />
         <Button
           title="Start Alerts"
           onPress={startAlertHandler}
