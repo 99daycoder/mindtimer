@@ -5,10 +5,9 @@ import { View, Keyboard, TouchableWithoutFeedback, Text } from "react-native";
 import { Divider } from "@rneui/themed";
 import { globalStyles } from "../styles/global";
 import * as Notifications from "expo-notifications";
-import * as Device from 'expo-device';
-import Slider from '@react-native-community/slider';
-import InlineTimePicker from 'react-native-inline-timepicker';
-
+import * as Device from "expo-device";
+import Slider from "@react-native-community/slider";
+import InlineTimePicker from "react-native-inline-timepicker";
 
 export default function Home({ navigation }) {
   useEffect(() => {
@@ -38,8 +37,16 @@ export default function Home({ navigation }) {
   const [alertStatus, setAlertStatus] = useState(false);
   const [expoPushToken, setExpoPushToken] = useState("");
   const [date, setDate] = useState(new Date());
-  const [startTimeH, setStartTimeH] = useState('10')
-  const [startTimeM, setStartTimeM] = useState('00')
+  const [time, setTime] = useState([
+    {
+      startHour: 10,
+      startMinute: 0,
+      endHour:20,
+      endMinute:0,
+    },
+  ]);
+
+
 
   const alertHandler = () => {
     if (alertStatus == true) {
@@ -48,7 +55,6 @@ export default function Home({ navigation }) {
       startAlertHandler();
     }
   };
-
 
   const startAlertHandler = async () => {
     setButtonText("Stop Timer");
@@ -87,10 +93,9 @@ export default function Home({ navigation }) {
       console.log(token);
     }
 
-
-    if (Platform.OS === 'android') {
-      await Notifications.setNotificationChannelAsync('default', {
-        name: 'default',
+    if (Platform.OS === "android") {
+      await Notifications.setNotificationChannelAsync("default", {
+        name: "default",
 
         importance: Notifications.AndroidImportance.MAX,
         vibrationPattern: [0, 250, 250, 250],
@@ -114,42 +119,80 @@ export default function Home({ navigation }) {
 
         )} */}
         <Text>Start Time:</Text>
-      <View style={globalStyles.sliderContainer}>
-        <View style={globalStyles.clockElements} >
-      <Text>Hour:</Text>
-          <Slider
-            style={{ width: 100, height: 40 }}
-            onSlidingComplete={() => setAlertsPerHour(inputValue)}
-            onValueChange={(newText) => setStartTimeH(newText)}
-            minimumValue={1}
-            maximumValue={12}
-            minimumTrackTintColor="#FFFFFF"
-            maximumTrackTintColor="#000000"
-            step={1}
+        <View style={globalStyles.sliderContainer}>
+          <View style={globalStyles.clockElements}>
+            <Text>Hour:</Text>
+            <Slider
+              style={{ width: 100, height: 40 }}
+              onSlidingComplete={() => setAlertsPerHour(inputValue)}
+              onValueChange={(newText) => setTime({...time ,startHour: newText})}
+              minimumValue={1}
+              maximumValue={24}
+              minimumTrackTintColor="#FFFFFF"
+              maximumTrackTintColor="#000000"
+              step={1}
             />
-          
-        </View>
-        <View style={globalStyles.clockElements}>
-        <Text>Minutes</Text>
-          <Slider
-            style={{ width: 100, height: 40 }}
-            onSlidingComplete={() => setAlertsPerHour(inputValue)}
-            onValueChange={(newText) => setStartTimeM(newText)}
-            minimumValue={0}
-            maximumValue={50}
-            minimumTrackTintColor="#FFFFFF"
-            maximumTrackTintColor="#000000"
-            step={10}
+          </View>
+          <View style={globalStyles.clockElements}>
+            <Text>Minutes</Text>
+            <Slider
+              style={{ width: 100, height: 40 }}
+              onSlidingComplete={() => setAlertsPerHour(inputValue)}
+              onValueChange={(newText) => setTime({...time, startMinute: newText})}
+              minimumValue={0}
+              maximumValue={50}
+              minimumTrackTintColor="#FFFFFF"
+              maximumTrackTintColor="#000000"
+              step={10}
             />
-          
+          </View>
         </View>
+        <View style={globalStyles.startTime}>
+          <Text>
+            {time.startHour}:{time.startMinute}
+          </Text>
         </View>
-        <View
-        style={globalStyles.startTime}>
-        <Text >{startTimeH}:{startTimeM}</Text>
+
+        <Divider style={globalStyles.divider} />
+
+
+        <Text>End Time:</Text>
+        <View style={globalStyles.sliderContainer}>
+          <View style={globalStyles.clockElements}>
+            <Text>Hour:</Text>
+            <Slider
+              style={{ width: 100, height: 40 }}
+              onSlidingComplete={() => setAlertsPerHour(inputValue)}
+              onValueChange={(newText) => setTime({...time ,endHour: newText})}
+              minimumValue={1}
+              maximumValue={24}
+              minimumTrackTintColor="#FFFFFF"
+              maximumTrackTintColor="#000000"
+              step={1}
+            />
+          </View>
+          <View style={globalStyles.clockElements}>
+            <Text>Minutes</Text>
+            <Slider
+              style={{ width: 100, height: 40 }}
+              onSlidingComplete={() => setAlertsPerHour(inputValue)}
+              onValueChange={(newText) => setTime({...time, endMinute: newText})}
+              minimumValue={0}
+              maximumValue={50}
+              minimumTrackTintColor="#FFFFFF"
+              maximumTrackTintColor="#000000"
+              step={10}
+            />
+          </View>
         </View>
-        
-            <Divider style={globalStyles.divider}/>
+        <View style={globalStyles.startTime}>
+          <Text>
+            {time.endHour}:{time.endMinute}
+          </Text>
+        </View>
+
+        <Divider style={globalStyles.divider} />
+
 
         <Text>Number of Random bells per hour</Text>
         <View style={globalStyles.sliderContainer}>
@@ -165,7 +208,7 @@ export default function Home({ navigation }) {
           />
           <Text>{alertsPerHour} seconds</Text>
         </View>
-    
+
         <Button
           title={buttonText}
           onPress={alertHandler}
