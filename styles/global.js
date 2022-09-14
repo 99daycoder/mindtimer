@@ -52,6 +52,10 @@ export const globalStyles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems:'center'
   },
-  
+  sliderContainer:{
+    jdisplay: "flex",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
 
 });
