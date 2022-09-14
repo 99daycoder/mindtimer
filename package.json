@@ -11,7 +11,7 @@
   "dependencies": {
     "@expo/webpack-config": "^0.17.0",
     "@react-native-async-storage/async-storage": "~1.17.3",
-    "@react-native-community/slider": "^4.3.1",
+    "@react-native-community/slider": "4.2.3",
     "@react-navigation/bottom-tabs": "^6.3.3",
     "@react-navigation/native": "^6.0.12",
     "@react-navigation/native-stack": "^6.8.0",
@@ -25,7 +25,7 @@
     "expo-status-bar": "~1.4.0",
     "react": "18.0.0",
     "react-dom": "18.0.0",
-    "react-native": "0.69.4",
+    "react-native": "0.69.5",
     "react-native-element-dropdown": "^2.2.0",
     "react-native-inline-timepicker": "^1.2.0",
     "react-native-web": "~0.18.7"

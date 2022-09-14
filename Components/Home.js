@@ -29,23 +29,21 @@ export default function Home({ navigation }) {
   useEffect(() => {
     const subscription = Notifications.addNotificationReceivedListener(
       (notification) => {
-        console.log("Current time", date.getMinutes());
-        console.log("this is time object", time);
-
-        //if END time == 16:30
+        console.log(date.getHours() < time.startHour)
+        console.log(date.getMinutes() < time.startMinute)
         if (
           date.getHours() < time.startHour &&
           date.getMinutes() < time.startMinute &&
           date.getHours() > time.endHour &&
           date.getMinutes() > time.endMinute
         ) {
-          console.log("Stop the watch");
+          console.log("stop")
           stopAlertHandler();
         }
       }
     );
     return () => subscription.remove();
-  }, []);
+  }, [time]);
 
   //Listener that runs when notification is pressed
   useEffect(() => {
@@ -57,6 +55,7 @@ export default function Home({ navigation }) {
         navigation.navigate("Notes");
       }
     );
+
     return () => subscription.remove();
   }, []);
 
@@ -92,7 +91,6 @@ export default function Home({ navigation }) {
     setAlertStatus(false);
     setButtonText("Start Timer");
     await Notifications.cancelAllScheduledNotificationsAsync();
-    setAlertsPerHour(0);
   };
 
   async function registerForPushNotificationsAsync() {
@@ -138,7 +136,7 @@ export default function Home({ navigation }) {
               style={{ width: 100, height: 40 }}
               onSlidingComplete={() => setAlertsPerHour(inputValue)}
               onValueChange={(newText) =>
-                setTime({ ...time, startHour: newText })
+                setTime( {...time, startHour: newText} )
               }
               minimumValue={1}
               maximumValue={24}
