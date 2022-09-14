@@ -11,7 +11,10 @@ export default function Notes() {
   const [inputValue, setInputValue] = useState()
   const [notes, setNotes] = useState()
 
+  
+
     useEffect(() => {
+      (!notes)? setNotes([]) : null
      getData()
     }, [])
 
@@ -32,8 +35,9 @@ export default function Notes() {
   const getData = async () => {
     try {
       const jsonValue = await AsyncStorage.getItem('@storage_Key')
-      console.log('local storage is..', jsonValue != null )
+      console.log('JSON_VALUE is..', jsonValue )
       console.log('local storage is..', jsonValue.length )
+     
        setNotes(JSON.parse(jsonValue)) 
     } catch(e) {
       // error reading value
