@@ -7,9 +7,17 @@ import { globalStyles } from "../styles/global";
 import * as Notifications from "expo-notifications";
 import * as Device from "expo-device";
 import Slider from "@react-native-community/slider";
-import InlineTimePicker from "react-native-inline-timepicker";
 
 export default function Home({ navigation }) {
+  // Listener that runs when notification is recieved
+  useEffect(() => {
+    const subscription = Notifications.addNotificationReceivedListener(notification => {
+      console.log("");
+    });
+    return () => subscription.remove();
+  }, []);
+
+  //Listener that runs when notification is pressed
   useEffect(() => {
     registerForPushNotificationsAsync().then((token) =>
       setExpoPushToken(token)
@@ -110,14 +118,6 @@ export default function Home({ navigation }) {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={globalStyles.container}>
         <StatusBar style="auto" />
-        {/* {alertsPerHour > 0 ? (
-          <Card.Title>
-            You are currently seeing alerts every {alertsPerHour} seconds
-          </Card.Title>
-        ) : (
-          <Card.Title>Your alerts are currently off</Card.Title>
-
-        )} */}
         <Text>Start Time:</Text>
         <View style={globalStyles.sliderContainer}>
           <View style={globalStyles.clockElements}>
