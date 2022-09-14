@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { View, Keyboard, TouchableWithoutFeedback } from "react-native";
 import { globalStyles } from "../styles/global";
 import * as Notifications from "expo-notifications";
+import * as Device from 'expo-device';
 import Slider from '@react-native-community/slider';
 
 
@@ -25,11 +26,11 @@ export default function Home({ navigation }) {
       shouldSetBadge: false,
     }),
   });
-  let input = useRef();
+
   const [alertsPerHour, setAlertsPerHour] = useState(0);
   const [inputValue, setInputValue] = useState(0);
   const [expoPushToken, setExpoPushToken] = useState('');
-
+  
   const startAlertHandler = async () => {
     await Notifications.scheduleNotificationAsync({
       content: {
@@ -79,12 +80,6 @@ export default function Home({ navigation }) {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={globalStyles.container}>
-        <Input
-          ref={input}
-          placeholder="How Many Seconds Between Alerts?"
-          onEndEditing={() => setAlertsPerHour(inputValue)}
-          onChangeText={(newText) => setInputValue(newText)}
-        />
         <StatusBar style="auto" />
         {alertsPerHour > 0 ? (
           <Card.Title>
@@ -94,15 +89,14 @@ export default function Home({ navigation }) {
           <Card.Title>Your alerts are currently off</Card.Title>
         )}
         <Slider
-          ref={input}
           style={{ width: 200, height: 40 }}
           onSlidingComplete={() => setAlertsPerHour(inputValue)}
           onValueChange={(newText) => setInputValue(newText)}
-          minimumValue={1}
-          maximumValue={6}
+          minimumValue={10}
+          maximumValue={70}
           minimumTrackTintColor="#FFFFFF"
           maximumTrackTintColor="#000000"
-          step={1}
+          step={10}
         />
         <Button
           title="Start Alerts"
