@@ -29,13 +29,10 @@ export default function Home({ navigation }) {
   useEffect(() => {
     const subscription = Notifications.addNotificationReceivedListener(
       (notification) => {
-        console.log(date.getHours() < time.startHour)
-        console.log(date.getMinutes() < time.startMinute)
         if (
-          date.getHours() < time.startHour &&
-          date.getMinutes() < time.startMinute &&
-          date.getHours() > time.endHour &&
-          date.getMinutes() > time.endMinute
+          date.getHours() * 60 + date.getMinutes() > time.startHour * 60 + time.startMinute 
+          && 
+          date.getHours() * 60 + date.getMinutes() > time.endHour * 60 + time.endMinute
         ) {
           console.log("stop")
           stopAlertHandler();
