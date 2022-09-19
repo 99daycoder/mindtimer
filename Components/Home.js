@@ -27,10 +27,13 @@ export default function Home({ navigation }) {
   
   // Listener that runs when notification is recieved
   useEffect(() => {
+    console.log("current time is", date.getHours() + ":" + date.getMinutes() )
+    console.log("start time valid", date.getHours() * 60 + date.getMinutes() < time.startHour * 60 + time.startMinute)
+    console.log("end time valid", date.getHours() * 60 + date.getMinutes() > time.endHour * 60 + time.endMinute)
     const subscription = Notifications.addNotificationReceivedListener(
       (notification) => {
         if (
-          date.getHours() * 60 + date.getMinutes() > time.startHour * 60 + time.startMinute 
+          date.getHours() * 60 + date.getMinutes() < time.startHour * 60 + time.startMinute 
           && 
           date.getHours() * 60 + date.getMinutes() > time.endHour * 60 + time.endMinute
         ) {
