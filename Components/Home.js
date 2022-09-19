@@ -8,6 +8,7 @@ import * as Notifications from "expo-notifications";
 import * as Device from "expo-device";
 import Slider from "@react-native-community/slider";
 let date = new Date();
+
 export default function Home({ navigation }) {
   const [alertsPerHour, setAlertsPerHour] = useState(0);
   const [inputValue, setInputValue] = useState(0);
@@ -18,24 +19,17 @@ export default function Home({ navigation }) {
   const [date, setDate] = useState(new Date());
   const [time, setTime] = useState([
     {
-      startHour: 10,
-      startMinute: 0,
-      endHour: 20,
-      endMinute: 0,
+      stopHour: 10,
+      stopMinute: 1,
     },
   ]);  
   
   // Listener that runs when notification is recieved
   useEffect(() => {
-    console.log("current time is", date.getHours() + ":" + date.getMinutes() )
-    console.log("start time valid", date.getHours() * 60 + date.getMinutes() < time.startHour * 60 + time.startMinute)
-    console.log("end time valid", date.getHours() * 60 + date.getMinutes() > time.endHour * 60 + time.endMinute)
     const subscription = Notifications.addNotificationReceivedListener(
       (notification) => {
         if (
-          date.getHours() * 60 + date.getMinutes() < time.startHour * 60 + time.startMinute 
-          && 
-          date.getHours() * 60 + date.getMinutes() > time.endHour * 60 + time.endMinute
+          date.getHours() * 60 + date.getMinutes() >= time.stopHour * 60 + time.stopMinute
         ) {
           console.log("stop")
           stopAlertHandler();
@@ -128,7 +122,7 @@ export default function Home({ navigation }) {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={globalStyles.container}>
         <StatusBar style="auto" />
-        <Text>Start Time:</Text>
+        <Text>Stop Alerts:</Text>
         <View style={globalStyles.sliderContainer}>
           <View style={globalStyles.clockElements}>
             <Text>Hour:</Text>
@@ -164,47 +158,6 @@ export default function Home({ navigation }) {
         <View style={globalStyles.startTime}>
           <Text>
             {time.startHour}:{time.startMinute}
-          </Text>
-        </View>
-
-        <Divider style={globalStyles.divider} />
-
-        <Text>End Time:</Text>
-        <View style={globalStyles.sliderContainer}>
-          <View style={globalStyles.clockElements}>
-            <Text>Hour:</Text>
-            <Slider
-              style={{ width: 100, height: 40 }}
-              onSlidingComplete={() => setAlertsPerHour(inputValue)}
-              onValueChange={(newText) =>
-                setTime({ ...time, endHour: newText })
-              }
-              minimumValue={1}
-              maximumValue={24}
-              minimumTrackTintColor="#FFFFFF"
-              maximumTrackTintColor="#000000"
-              step={1}
-            />
-          </View>
-          <View style={globalStyles.clockElements}>
-            <Text>Minutes</Text>
-            <Slider
-              style={{ width: 100, height: 40 }}
-              onSlidingComplete={() => setAlertsPerHour(inputValue)}
-              onValueChange={(newText) =>
-                setTime({ ...time, endMinute: newText })
-              }
-              minimumValue={0}
-              maximumValue={50}
-              minimumTrackTintColor="#FFFFFF"
-              maximumTrackTintColor="#000000"
-              step={10}
-            />
-          </View>
-        </View>
-        <View style={globalStyles.startTime}>
-          <Text>
-            {time.endHour}:{time.endMinute}
           </Text>
         </View>
 
