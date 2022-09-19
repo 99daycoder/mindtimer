@@ -7,7 +7,7 @@ import { globalStyles } from "../styles/global";
 import * as Notifications from "expo-notifications";
 import * as Device from "expo-device";
 import Slider from "@react-native-community/slider";
-let date = new Date();
+
 
 export default function Home({ navigation }) {
   const [alertsPerHour, setAlertsPerHour] = useState(0);
@@ -16,7 +16,6 @@ export default function Home({ navigation }) {
   const [buttonText, setButtonText] = useState("Start Timer");
   const [alertStatus, setAlertStatus] = useState(false);
   const [expoPushToken, setExpoPushToken] = useState("");
-  const [date, setDate] = useState(new Date());
   const [time, setTime] = useState([
     {
       stopHour: 10,
@@ -28,6 +27,8 @@ export default function Home({ navigation }) {
   useEffect(() => {
     const subscription = Notifications.addNotificationReceivedListener(
       (notification) => {
+        let date = new Date();
+        console.log("time",date.getHours() * 60 + date.getMinutes(), "stop time",time.stopHour * 60 + time.stopMinute)
         if (
           date.getHours() * 60 + date.getMinutes() >= time.stopHour * 60 + time.stopMinute
         ) {
@@ -76,7 +77,7 @@ export default function Home({ navigation }) {
       content: {
         title: "MindTimer Notification",
         body: "Please log your activity",
-        data: { data: "goes here" },
+        ios: { sound: true },
       },
       trigger: { seconds: parseInt(inputValue), repeats: true },
     });
@@ -102,13 +103,11 @@ export default function Home({ navigation }) {
         return;
       }
       token = (await Notifications.getExpoPushTokenAsync()).data;
-      console.log(token);
     }
 
     if (Platform.OS === "android") {
       await Notifications.setNotificationChannelAsync("default", {
         name: "default",
-
         importance: Notifications.AndroidImportance.MAX,
         vibrationPattern: [0, 250, 250, 250],
         lightColor: "#FF231F7C",
@@ -130,7 +129,7 @@ export default function Home({ navigation }) {
               style={{ width: 100, height: 40 }}
               onSlidingComplete={() => setAlertsPerHour(inputValue)}
               onValueChange={(newText) =>
-                setTime( {...time, startHour: newText} )
+                setTime( {...time, stopHour: newText} )
               }
               minimumValue={1}
               maximumValue={24}
@@ -145,7 +144,7 @@ export default function Home({ navigation }) {
               style={{ width: 100, height: 40 }}
               onSlidingComplete={() => setAlertsPerHour(inputValue)}
               onValueChange={(newText) =>
-                setTime({ ...time, startMinute: newText })
+                setTime({ ...time, stopMinute: newText })
               }
               minimumValue={0}
               maximumValue={50}
@@ -157,7 +156,7 @@ export default function Home({ navigation }) {
         </View>
         <View style={globalStyles.startTime}>
           <Text>
-            {time.startHour}:{(time.startMinute === 0)? "00" : time.startMinute}
+            {time.stopHour}:{(time.stopMinute === 0)? "00" : time.stopMinute}
           </Text>
         </View>
 
