@@ -157,7 +157,7 @@ export default function Home({ navigation }) {
         </View>
         <View style={globalStyles.startTime}>
           <Text>
-            {time.startHour}:{time.startMinute}
+            {time.startHour}:{(time.startMinute === 0)? "00" : time.startMinute}
           </Text>
         </View>
 
