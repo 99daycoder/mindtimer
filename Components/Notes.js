@@ -1,6 +1,6 @@
 import { Input, Button } from '@rneui/base';
 import { Card } from "@rneui/themed";
-import { View, Keyboard, FlatList, TouchableWithoutFeedback } from 'react-native';
+import { View, Keyboard, FlatList } from 'react-native';
 import NoteItem from './NoteItem';
 import { useState, useRef, useEffect } from 'react';
 import { globalStyles } from '../styles/global';
@@ -61,7 +61,6 @@ export default function Notes() {
   }
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
     <View style={globalStyles.container}>
       <Card.Title>What you've been up to today</Card.Title>
       <View style={globalStyles.row}>
@@ -69,7 +68,7 @@ export default function Notes() {
           ref={input}
           containerStyle={{ width: '70%' }}
           style={globalStyles.inputRow}
-          placeholder='What were you doing now?'
+          placeholder='Enter what your doing?'
           onChangeText={newText => setInputValue(newText)}>
         </Input>
         <Button title="Add Item" onPress={simpleNoteHandler} buttonStyle={globalStyles.buttonRow} /></View>
@@ -80,7 +79,6 @@ export default function Notes() {
         )}
       />
     </View>
-    </TouchableWithoutFeedback>
   );
 }
 

@@ -119,12 +119,11 @@ export default function Home({ navigation }) {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={globalStyles.container}>
         <StatusBar style="auto" />
-        <Text>Stop Alerts:</Text>
+        <Text style={globalStyles.h1Style}>Stop Alerts:</Text>
         <View style={globalStyles.sliderContainer}>
-          <View style={globalStyles.clockElements}>
             <Text>Hour:</Text>
             <Slider
-              style={{ width: 100, height: 40 }}
+              style={{ width: 200, height: 40 }}
               onValueChange={(newText) =>
                 setTime( {...time, stopHour: newText} )
               }
@@ -134,31 +133,16 @@ export default function Home({ navigation }) {
               maximumTrackTintColor="#000000"
               step={1}
             />
-          </View>
-          <View style={globalStyles.clockElements}>
-            <Text>Minutes</Text>
-            <Slider
-              style={{ width: 100, height: 40 }}
-              onValueChange={(newText) =>
-                setTime({ ...time, stopMinute: newText })
-              }
-              minimumValue={0}
-              maximumValue={50}
-              minimumTrackTintColor="#FFFFFF"
-              maximumTrackTintColor="#000000"
-              step={10}
-            />
-          </View>
-        </View>
-        <View style={globalStyles.startTime}>
-          <Text>
+          <Text style={globalStyles.h1Style}>
             {time.stopHour}:{(time.stopMinute === 0)? "00" : time.stopMinute}
           </Text>
+          </View>
+        <View style={globalStyles.startTime}>
         </View>
 
         <Divider style={globalStyles.divider} />
 
-        <Text>Number of Random bells per hour</Text>
+        <Text style={globalStyles.h1Style}>Number of Random bells per hour</Text>
         <View style={globalStyles.sliderContainer}>
           <Slider
             style={{ width: 200, height: 40 }}
@@ -170,9 +154,8 @@ export default function Home({ navigation }) {
             maximumTrackTintColor="#000000"
             step={1}
           />
-          <Text>{alertsPerHour} bells</Text>
+          <Text style={globalStyles.h1Style}>{alertsPerHour} bells</Text>
         </View>
-
         <Button
           title={buttonText}
           onPress={alertHandler}
