@@ -125,7 +125,6 @@ export default function Home({ navigation }) {
             <Text>Hour:</Text>
             <Slider
               style={{ width: 100, height: 40 }}
-              onSlidingComplete={() => setAlertsPerHour(inputValue)}
               onValueChange={(newText) =>
                 setTime( {...time, stopHour: newText} )
               }
@@ -140,7 +139,6 @@ export default function Home({ navigation }) {
             <Text>Minutes</Text>
             <Slider
               style={{ width: 100, height: 40 }}
-              onSlidingComplete={() => setAlertsPerHour(inputValue)}
               onValueChange={(newText) =>
                 setTime({ ...time, stopMinute: newText })
               }
