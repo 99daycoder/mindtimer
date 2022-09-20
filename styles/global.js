@@ -56,6 +56,7 @@ export const globalStyles = StyleSheet.create({
     jdisplay: "flex",
     flexDirection: 'row',
     justifyContent: 'space-between',
+    marginTop: 50,
   },
   clockElements:{
     marginHorizontal: 10,
