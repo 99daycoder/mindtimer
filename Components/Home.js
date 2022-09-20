@@ -10,16 +10,16 @@ import Slider from "@react-native-community/slider";
 
 
 export default function Home({ navigation }) {
-  const [alertsPerHour, setAlertsPerHour] = useState(0);
-  const [inputValue, setInputValue] = useState(0);
+  const [alertsPerHour, setAlertsPerHour] = useState(1);
+  const [inputValue, setInputValue] = useState(1);
 
   const [buttonText, setButtonText] = useState("Start Timer");
   const [alertStatus, setAlertStatus] = useState(false);
   const [expoPushToken, setExpoPushToken] = useState("");
   const [time, setTime] = useState([
     {
-      stopHour: 10,
-      stopMinute: 1,
+      stopHour: 24,
+      stopMinute: 0,
     },
   ]);  
   
@@ -77,7 +77,7 @@ export default function Home({ navigation }) {
         body: "Please log your activity",
         sound: true,
       },
-      trigger: { seconds: parseInt(inputValue), repeats: true },
+      trigger: { seconds: parseInt(3600/inputValue), repeats: true },
     });
   };
   const stopAlertHandler = async () => {
@@ -164,13 +164,13 @@ export default function Home({ navigation }) {
             style={{ width: 200, height: 40 }}
             onSlidingComplete={() => setAlertsPerHour(inputValue)}
             onValueChange={(newText) => setInputValue(newText)}
-            minimumValue={10}
-            maximumValue={70}
+            minimumValue={1}
+            maximumValue={6}
             minimumTrackTintColor="#FFFFFF"
             maximumTrackTintColor="#000000"
-            step={10}
+            step={1}
           />
-          <Text>{alertsPerHour} seconds</Text>
+          <Text>{alertsPerHour} bells</Text>
         </View>
 
         <Button
