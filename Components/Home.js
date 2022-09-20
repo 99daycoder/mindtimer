@@ -28,11 +28,9 @@ export default function Home({ navigation }) {
     const subscription = Notifications.addNotificationReceivedListener(
       (notification) => {
         let date = new Date();
-        console.log("time",date.getHours() * 60 + date.getMinutes(), "stop time",time.stopHour * 60 + time.stopMinute)
         if (
           date.getHours() * 60 + date.getMinutes() >= time.stopHour * 60 + time.stopMinute
         ) {
-          console.log("stop")
           stopAlertHandler();
         }
       }
@@ -116,7 +114,7 @@ export default function Home({ navigation }) {
 
     return token;
   }
-
+  let date = new Date();
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={globalStyles.container}>
@@ -131,7 +129,7 @@ export default function Home({ navigation }) {
               onValueChange={(newText) =>
                 setTime( {...time, stopHour: newText} )
               }
-              minimumValue={1}
+              minimumValue={date.getHours()+1}
               maximumValue={24}
               minimumTrackTintColor="#FFFFFF"
               maximumTrackTintColor="#000000"
