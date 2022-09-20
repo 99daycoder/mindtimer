@@ -77,7 +77,7 @@ export default function Home({ navigation }) {
       content: {
         title: "MindTimer Notification",
         body: "Please log your activity",
-        ios: { sound: true },
+        sound: true,
       },
       trigger: { seconds: parseInt(inputValue), repeats: true },
     });
